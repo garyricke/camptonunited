@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19" height="22" xmlns="http://www.w3.org/2000/svg">
+  <title>Mirror</title>
+  <g fill="none" stroke="#333" stroke-linejoin="round">
+    <path d="M.5,.5 v16 h13 v-16 z m5,16 v5 h13 v-16 h-5"/>
+    <path d="M13.25,5.5 h-7.75 v11" stroke-linecap="round" stroke-dasharray="1.5, 2"/>
+  </g>
+</svg>

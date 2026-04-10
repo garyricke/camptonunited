@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" data-critters-container>
+  <head>
+    <title>SportsEngine | Sign Up</title>
+    <meta charset="utf-8">
+    <script>
+      (function(w,d,s,l){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),g=d.createElement(s);
+      j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=GTM-M67J9FB&gtm_auth=v6xPTJmwTbojbhZXROI4Eg&gtm_preview=env-2&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+      g.async=true;g.src='https://www.googletagmanager.com/gtm.js?id=GTM-KGG8ZWR&gtm_auth=X5qhiYLYzREwsNTNK36Mwg&gtm_preview=env-2&gtm_cookies_win=x';f.parentNode.insertBefore(g,f);
+      })(window,document,'script','dataLayer');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/setup/">
+    <link rel="shortcut icon" href="https://s3.amazonaws.com/sportngin-snap-production/ui_themes/assets/latest/images/sportsengine-app-icon-sm.png">
+    <script src="https://se-fe-angular-services.ui.sportngin.com/se-fe-themes/loader.js?supportedThemes=light|dark"></script>
+  <style>:root{--vh:1vh;--se-bar-top:0px}html{background:#c3cace;font-size:14px}@media (max-width: 599px){body{margin:0}}</style><link rel="stylesheet" href="styles.abd07fa5557b7919.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.abd07fa5557b7919.css"></noscript></head>
+  <body>
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGG8ZWR&gtm_auth=X5qhiYLYzREwsNTNK36Mwg&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M67J9FB&gtm_auth=v6xPTJmwTbojbhZXROI4Eg&gtm_preview=env-2&gtm_cookies_win=x" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <app-root></app-root>
+  <script src="runtime.ccfd42a16f1385c5.js" type="module"></script><script src="polyfills.7d8271d89e1c2580.js" type="module"></script><script src="vendor.32ccb9f6f0aa89fd.js" type="module"></script><script src="main.816b6e552f0fd683.js" type="module"></script></body>
+</html>

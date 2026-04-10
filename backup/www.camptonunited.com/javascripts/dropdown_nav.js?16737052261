@@ -1,0 +1,30 @@
+if(typeof($j)!='undefined'){
+dropdown_nav_init = function(){
+	var nav = $j('#topNav');
+	var navRight = nav.offset().left + nav.width();
+	nav.find('ul').show().each(function(){
+		var menu = $j(this);
+		var menuRight = menu.offset().left + menu.width();
+		if(menuRight-navRight>0) { menu.addClass('right'); }
+	}).css('display','');
+	nav.find('a').each(function(){
+		var menu = $j(this).parent();
+		var hoverTimer;
+		var cancelHover = function(){
+			if(!menu.hasClass('over')){ menu.removeClass('hover') } 
+		}
+		menu.hover(
+			function(){ //mouse over
+				clearTimeout(hoverTimer);
+				menu.parent().find('.hover').removeClass('hover');
+				menu.addClass('hover').addClass('over');
+			},
+			function(){ //mouse out
+				menu.removeClass('over');
+				hoverTimer=setTimeout(function(){cancelHover();},500);
+			}
+		);
+	});
+};
+}
+else { debug.warn("Please enable the jQuery Site Setting for better dropdown navigation."); }

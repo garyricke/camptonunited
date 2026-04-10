@@ -1,0 +1,10 @@
+
+          <html>
+            <body>
+              <script type='text/javascript' charset='utf-8'>
+              // Might need to figure out a replacement for the code that used to reset document.domain here
+                window.parent.setTimeout('window.location.href = \'/\';', 1);
+                if (window.parent !== window && document.location) document.location.replace('about:blank');
+              </script>
+            </body>
+          </html>

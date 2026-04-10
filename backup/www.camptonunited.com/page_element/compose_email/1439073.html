@@ -1,0 +1,92 @@
+<div id="lbWrapper" class="reg-admin helperLightbox">
+    <div id="lightboxHeader">
+      <h1 id="lightbox_page_title">Compose Email Message</h1>
+      <a class="lbAction" rel="deactivate" id="close_lightbox" href="1439073.html">CLOSE</a>
+      
+    </div>
+
+    <div id="lightboxPreview" style="display: none"></div>
+
+    <div id="lightboxBody">
+      <div></div>
+
+<div class="elementMenuOption" style="background-image: url(../../app_images/peIconContactEmail.gif);">
+    <h3><span>Compose Email Message to Taylor  Ortiz</span></h3>
+    <p>Complete the form below. This message will be emailed to Taylor  Ortiz, Youth Director.</p>
+    <span class="clearAll"></span>
+</div>
+
+<form id="lb_form" onsubmit="new Ajax.Updater(&#39;lightboxBody&#39;, &#39;/page_element/send_email/1439073&#39;, {asynchronous:true, evalScripts:true, parameters:Form.serialize(this)}); return false;" action="https://www.camptonunited.com/page_element/send_email/1439073" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="T+gqcFl2dSC8HoEG+/dOY+Ipm72PAt3woSDxB/8295p/zyaFajH3lU734pt+PiMnkWSWAzbfohD4BtEoKFdV/w==" />
+
+   <div class="fcForm">
+
+        <table>
+            <tr>
+              <th><label>To:</label></th>
+              <td>Taylor  Ortiz, Youth Director</td>
+            </tr>
+            <tr class="required">
+              <th><label><em>*</em>From (Your Name):</label></th>
+                <td><input type="text" name="from_name" id="from_name" value="" class="medium" /></td>
+            </tr>
+            <tr class="required">
+              <th><label><em>*</em>Your Email Address:</label></th>
+                <td><input type="text" name="from_email" id="from_email" value="" class="medium" /></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                  <input type="hidden" name="sender_copy" value="0" />
+                  <input type="checkbox" name="sender_copy" id="sender_copy" value="1" checked="checked" />
+                  Send a copy of this message to yourself.
+                </td>
+            </tr>
+            <tr class="required">
+                <th><label><em>*</em>Email Subject:</label></th>
+                <td><input type="text" name="subject" id="subject" value="" class="large" /></td>
+            </tr>
+            <tr class="required" valign="top">
+                <th><label><em>*</em>Message to Taylor :</label></th>
+                <td><textarea name="message" id="message" class="large">
+</textarea></td>
+            </tr>
+            <tr class="required">
+              <th><label><em>*</em>Captcha</label></th>
+              <td><div id="contact_recaptcha"></div></td>
+            </tr>
+		</table>
+  	<div style="display:none" >
+  		<input type="text" name="field_check" id="field_check" value="" />
+  	</div>
+	</div>
+  <input type="hidden" name="content_template_resource_id" id="content_template_resource_id" />
+  <input type="text" name="honey_pot" style="display:none" />
+	<div class='submitLightbox' id='submit_buttoncontact' style=''><input type="submit" name="commit" value=" Send This Message to Taylor  " id="submit_tagcontact" onclick="Element.hide(&#39;submit_buttoncontact&#39;); Element.show(&#39;waiting_textcontact&#39;)" /> </div><div id='waiting_textcontact' class='submitLightbox submit_lb_tag' style='display:none;'><img width="" height="" src="https://app-assets2.sportngin.com/app_images/loaderBarUserMode.gif?17749823491" /><br/>Please Wait&hellip; Processing</div>
+</form><script type="text/javascript">
+  initiateRecaptcha(contact_recaptcha)
+</script>
+
+    </div>
+
+    <div id="debug"></div>
+
+    <div id="lightboxFooter">
+      <div id="lightboxFeedback"></div>
+      <div id="bottomRight"></div>
+    </div>
+</div>
+
+<script>
+;(function() {
+
+var selector = '#lbWrapper form'
+var element = $j(selector)[0]
+var modules = ["editLightbox"]
+
+if (element) {
+  angular.bootstrap(element, modules)
+}
+
+})();
+</script>
+

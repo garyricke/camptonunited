@@ -1,0 +1,1477 @@
+(function($) {
+  $(function() {
+    var mobileBreakpoints = ["1024px", "768px", "640px","480px","360px","270px"];
+
+    function fitElementWidth(fitEl){
+      var elementLength = $(fitEl).length;
+      var elementPercent = 100 / elementLength;
+      var fitElementStyle = '<style>@media only screen and (max-width: '+mobileBreakpoints[1]+') { '+fitEl+'{ width:'+elementPercent+'%; }}</style>';
+      $(fitElementStyle).appendTo('head');
+    }
+    function setElementWidth(setEl){
+      var totalWidth = 0;
+      setEl.each(function() {
+        totalWidth =  $(this).outerWidth() + totalWidth;
+      });
+      setEl.parent().css('width',totalWidth+10);
+    }
+    function clearClassDropdowns(){
+      $('.sport-crumbs-list').removeClass('thisCrumb');
+      $('#sport-crumbs ul li').removeClass('crumbSelected');
+      $('.dropdown-wrapper').removeClass('mdd-active-open');
+    }
+    setElementWidth($('#sport-crumbs .sport-crumbs-btns > ul li'));
+    fitElementWidth('#sport-header .sport-tools li');
+
+    $('#sport-crumbs .sport-crumbs-btns a[data-id]').on( "click", function(e) {
+      thisCrumb = $(this).attr('data-id');
+      thisCrumbId = $('#'+thisCrumb);
+      parentList = $(this).parent();
+      
+      if(thisCrumb != undefined){
+        if(thisCrumbId.hasClass('thisCrumb') == true){
+          clearClassDropdowns();
+        }
+        else{
+          clearClassDropdowns();
+          parentList.addClass('crumbSelected');
+          thisCrumbId.addClass('thisCrumb');
+        }
+        thisCrumbId.mouseleave(function(e) {
+          clearClassDropdowns();
+          e.stopPropagation();
+        });
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    $('.sport-crumbs-list-close a').on( "click", function(e) {
+      clearClassDropdowns();
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    /* Mega Dropdown Season */
+    $('#megaDropDown-season').on( "click", function(e) {
+      nextDiv = $(this).next();
+      parentList = $(this).parent();
+      if(nextDiv.length == true){
+        if(parentList.hasClass('mdd-active-open') == true){
+            parentList.removeClass('mdd-active-open');
+        }
+        else{
+          parentList.addClass('mdd-active-open');
+        }
+        $('.sport-crumbs-list').removeClass('thisCrumb');
+        $('#sport-crumbs ul li').removeClass('crumbSelected');
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    $('#megaDropDown-season-callout a.close').on( "click", function(e) {
+      $('.dropdown-wrapper').removeClass('mdd-active-open');
+    });
+    /* Roster Player Dropdown */
+    $('#rosterPlayerConnections-button').on( "click", function(e) {
+      $('#rosterPlayerConnections-dropdown').toggle(0, function() {
+        if($(this).is(':visible')) {
+          $('#rosterPlayerConnections-button').addClass('rpc-open');
+        }
+        else{
+          $('#rosterPlayerConnections-button').removeClass('rpc-open');
+        }
+      });
+    });
+    /* make textBlockElement liquid remove this */
+    $j('.textBlockElement .text > table').each( function() {
+         $j(this).wrap('<div class="tableWrapper"></div>');
+    });
+    // 
+    $j(document).on('topnav.loaded', 'body', function(){
+      $('#topNav ul ul ul li a.disabled').parent().addClass('disabled');      
+    });
+    /* Network Bar Select Option */
+    $('#network_sites').change(function() {
+      window.location = $(this).val();
+    });
+    /* Touch detection */
+    if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)){
+      $j("body").addClass("touch-screen")
+    }
+  });
+}(jQuery));
+;(function($) {
+  
+  function hasTouch() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+  }
+  
+  function setTouchScrolling(i, el) {
+    if (el.style) el.style.webkitOverflowScrolling = 'touch';
+  }
+  
+  function trackTouch(e) {
+    var el = $(e.currentTarget);
+    var currentY = e.originalEvent.pageY;
+    var lastY = el.data('scrollGuardY');
+    if (lastY === null) lastY = currentY;
+    el.data('scrollGuardY', currentY);
+    return currentY - lastY;
+  }
+  
+  function untrackTouch(e) {
+    $(e.currentTarget).data('scrollGuardY', null);
+  }
+  
+  $.fn.scrollGuard = function() {
+    var scrollEvents = 'mousewheel';
+    if (hasTouch()) {
+      scrollEvents += ' touchmove';
+      this.each(setTouchScrolling)
+        .on('touchstart', trackTouch)
+        .on('touchend', untrackTouch);
+    }
+    return this
+      .on(scrollEvents, function(e) {
+        var event = e.originalEvent;
+        var el = e.currentTarget;
+        var d = event.wheelDelta || -event.detail || trackTouch(e);
+        var atTop = el.scrollTop === 0;
+        var atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight;
+        if (atTop && atBottom || d < 0 && atBottom || d > 0 && atTop) e.preventDefault();
+      });
+  };
+
+})(jQuery);
+;(function($, _){
+
+  var NAR = NGIN.AdResizer = function(selector, config) {
+    this.$el = $(selector); // this might need to be a direct reference to the ad-wrapper element
+    this.el = this.$el[0];
+    this.bindEvents();
+  }
+
+  _.extend(NAR, {
+    setup: function() {
+      googletag.pubads().addEventListener('slotRenderEnded', function(e) {
+        var adElement = $('#' + e.slot.getSlotElementId());
+        adElement.trigger('adSlotRendered', e);
+      });
+    }
+  });
+
+  _.extend(NAR.prototype, {
+
+    bindEvents: function() {
+      $(window).on('resize', this.resize.bind(this));
+      this.$el.on('adSlotRendered', this.resize.bind(this));
+      _.delay(this.resize.bind(this));
+    },
+
+    resize: function() {
+      this.setSize(1, 0); // reset
+      var scale = Math.min(this.el.clientWidth / this.el.scrollWidth, 1);
+      var marginBottom = this.el.scrollHeight * (scale - 1);
+      this.setSize(scale, marginBottom);
+    },
+
+    setSize: function(scale, marginBottom) {
+      this.$el.children().css('transform', 'scale(' + scale + ')');
+      this.$el.css('marginBottom', marginBottom + 'px');
+    }
+
+  });
+
+  if (typeof googletag == 'object') googletag.cmd.push(NGIN.AdResizer.setup);
+
+})(jQuery, _);
+;(function($, _) {
+
+  if (!NGIN) NGIN = {}
+  if (!NGIN.Modules) NGIN.Modules = {}
+
+  var $win = $(window);
+
+  var NS = NGIN.Modules.NavService = {
+
+    promises: {},
+    modules: {},
+
+    register: function(className, methods) {
+      var initialize = methods.initialize || $.noop;
+      var module = this.modules[className] = function(opts) {
+        this._setup(initialize, opts) // shared setup method
+      }
+      _.extend(module.prototype, this.sharedMethods, methods);
+      delete module.prototype.initialize;
+    },
+
+    create: function(className, opts) {
+      var Module = this.modules[className];
+      return Module && new Module(opts);
+    },
+
+    fixedNav: function(el) {
+      var $nav = $(el);
+      var $els = $nav.add('html');
+      var navTop = $nav.offset().top;
+      var wasFixed = false;
+
+      $(window).scroll(function(){
+        var scrollTop = window.scrollY || window.pageYOffset || 0;
+        var isFixed = navTop < scrollTop;
+        if (!wasFixed && isFixed) {
+          $els.addClass('nav-fixed nav-fixed-start');
+          setTimeout(function(){
+            $els.removeClass('nav-fixed-start');
+          }, 1)
+        }
+        else if (wasFixed && !isFixed) {
+          $els.removeClass('nav-fixed');
+        }
+        wasFixed = isFixed;
+      });
+    },
+
+    sharedMethods: {
+
+      // PUBLIC METHODS
+
+      getNavData: function(url) {
+        var nav = this;
+        return this.preload((this.nav_url = url));
+      },
+
+      preload: function(e) {
+        var url = typeof e === 'string' ? e : $(e.currentTarget).attr('data-nav-url');
+        return NS.promises[url] = NS.promises[url] || $.ajax({
+          dataType: "json",
+          url: url,
+          error: this._preloadError.bind(this, url)
+        });
+      },
+
+      // PRIVATE
+
+      _setup: function(initialize, opts) {
+        this.$html = $('html');
+        this.$el = $(opts.selector).first();
+        this.$navLinks = $($('#navLinksTemplate').html());
+        this.$pageSearch = $($('#pageSearchTemplate').html());
+
+        this.activeClass = opts.activeClass || '';
+        this.collapsedClass = opts.collapsedClass || '';
+        this.navUrl = opts.data.nav_url;
+        this.paywallImage = '<img src="' + opts.paywallImage + '" class="paywall_image">';
+        this.minWidth = opts.minWidth || 0;
+        this.collapseWidth = opts.collapseWidth || 0;
+        this.maxWidth = opts.maxWidth || Infinity;
+        this.currentId = opts.currentId;
+        this.opts = opts;
+
+        this._cache(opts.data);
+        this._bindEvents();
+
+        initialize.call(this, opts);
+
+        // render should come last
+        this.getNavData(this.navUrl)
+          .then(this._render.bind(this));
+      },
+
+      _bindEvents: function() {
+        $win.on('resize', this._resize.bind(this));
+      },
+
+      _render: function(navData, opts) {
+        this.render(navData, opts);
+        this.rendered = this.visible = true;
+        this._resize();
+      },
+
+      _okToShow: function() {
+        return window.innerWidth >= this.minWidth && window.innerWidth <= this.maxWidth;
+      },
+
+      _resize: function() {
+        if (!this.rendered) return;
+
+        // note, you can specify a collapse class in your config OR in the nav module
+        var collapse = this.collapsedClass && window.innerWidth <= this.collapseWidth;
+        var show = this._okToShow();
+
+        // set html class if visible
+        this.$html.toggleClass(this.activeClass, show);
+        if (this.collapsedClass) this.$html.toggleClass(this.collapsedClass, show && collapse);
+
+        // show or hide as needed
+        if (show && !this.visible) {
+          this.visible = true;
+          this.$el.show();
+        } else if (!show && this.visible) {
+          this.visible = false;
+          this.$el.hide();
+        }
+
+        if (this.resize) this.resize();
+      },
+
+      _cache: function(navData) {
+        var dfd = $.Deferred();
+        dfd.resolve(navData);
+        NS.promises[navData.nav_url] = dfd.promise();
+      },
+
+      _preloadError: function(url) {
+        delete NS.promises[url];
+      }
+    }
+
+  }
+
+})(jQuery, _);
+;(function($, _) {
+
+  var NEXT_TICK = 30;
+  var OPEN_DELAY = 200;
+  var CLOSE_DELAY = 500;
+  var OPENING_CLASS = 'dropdown-opening';
+  var OPEN_CLASS = 'dropdown-open';
+  var OPEN_CLASSES = OPEN_CLASS + ' ' + OPENING_CLASS;
+  var DROPDOWN_MARGIN_TOP = 0;
+  var DROPDOWN_MARGIN_BOTTOM = 30;
+  var DROPDOWN_WIDTH = 200;
+  var DROPDOWN_ALIGN_LEFT = 'dropdown-align-left';
+  var DROPDOWN_ALIGN_RIGHT = 'dropdown-align-right';
+  var DROPDOWN_ALIGN_CLASSES = DROPDOWN_ALIGN_LEFT + ' ' + DROPDOWN_ALIGN_RIGHT;
+
+  function realOuterWidth(el) {
+    if (!el || !el.style) return 0;
+    var s = window.getComputedStyle(el);
+    return parseFloat(s.width) + parseFloat(s.paddingRight) + parseFloat(s.paddingLeft) + parseFloat(s.borderRightWidth) + parseFloat(s.borderLeftWidth);
+  }
+
+  NGIN.Modules.NavService.register('DropdownNav', {
+
+    initialize: function(opts) {
+      this.openDelay = opts.openDelay || OPEN_DELAY;
+      this.closeDelay = opts.closeDelay || CLOSE_DELAY;
+      this.$navItems = $('<ul class="theme-nav theme-nav-style-dropdown" data-nav-level="1" />').appendTo(this.$el);
+      this.$moreButton = $('<li class="theme-nav-item theme-nav-more hasChild"><a class="theme-nav-link">More</a></li>');
+      this.$moreMenu = $('<ul class="theme-nav-dropdown" data-nav-level="2" />').width(DROPDOWN_WIDTH).scrollGuard();
+      this.$moreButton.data('dropdown', this.$moreMenu);
+      this.$moreMenu.data('navItem', this.$moreButton);
+      this.bindEvents();
+    },
+
+    bindEvents: function() {
+      $(window).one('load', this.checkOverflowAfterLoad.bind(this));
+      $(document).on('scroll', this.closeAllDropdowns.bind(this));
+      this.$el
+        .on('mouseenter', '.theme-nav-dropdown', this.dropdownOver.bind(this))
+        .on('mouseleave', '.theme-nav-dropdown', this.dropdownOut.bind(this))
+        .on('mouseenter', '.theme-nav-item', this.itemOver.bind(this))
+        .on('mouseleave', '.theme-nav-item', this.itemOut.bind(this))
+    },
+
+    itemOver: function(e) {
+      var $navItem = $(e.currentTarget);
+      $navItem.data('over', true);
+      if ($navItem.hasClass('hasChild')) this.showDropdown($navItem);
+      this.keepDropdownOpen($navItem.data('parentDropdown'));
+    },
+
+    itemOut: function(e) {
+      var $navItem = $(e.currentTarget);
+      var $dropdown = $navItem.data('dropdown');
+      $navItem.data('over', false);
+      this.allowDropdownToClose($dropdown);
+    },
+
+    dropdownOver: function(e) {
+      var $dropdown = $(e.currentTarget);
+      $dropdown.data('over', true);
+      this.keepDropdownOpen($dropdown);
+    },
+
+    dropdownOut: function(e) {
+      var $dropdown = $(e.currentTarget);
+      $dropdown.data('over', false);
+      this.allowDropdownToClose($dropdown);
+    },
+
+    closeAllDropdowns: function() {
+      this.closeItems(this.$navItems.children());
+    },
+
+    render: function(navData) {
+      var showChildren = this.opts.showChildren && navData.children.length;
+      var items = showChildren ? navData.children : navData.siblings;
+      var renderOpts = {
+        items: items,
+        level: 1
+      }
+
+      if (this.opts.showTitle) {
+        var titleObj = showChildren ? navData : navData.parent;
+        renderOpts.title = titleObj.name;
+        renderOpts.titleLink = titleObj.url;
+      }
+
+      this.renderNavItems(this.$navItems, renderOpts);
+      this.$el.append(this.$moreMenu);
+      this.handleOverflow();
+    },
+
+    resize: function() {
+      // need to only run this when showing the first time???
+      this.resetOverflow();
+    },
+
+    showDropdown: function($navItem) {
+      var nav = this;
+      var $dropdown = this.renderDropdown($navItem);
+      var $itemAndDropdown = $navItem.add($dropdown);
+      var openDelay = $dropdown.is(':visible') ? 0 : this.openDelay;
+
+      // keep this drop open
+      clearTimeout($dropdown.data('openTimeout'));
+      clearTimeout($dropdown.data('closeTimeout'));
+
+      this.positionDropdown($dropdown);
+
+      function startOpening() {
+        if (!$navItem.data('over') && !$dropdown.data('over')) return;
+        nav.closeItems($navItem.siblings());
+        $itemAndDropdown.addClass(OPENING_CLASS);
+        $dropdown.data('openTimeout', setTimeout(finishOpening, NEXT_TICK));
+      }
+
+      function finishOpening() {
+        if ($navItem.hasClass(OPENING_CLASS)) {
+          $itemAndDropdown
+            .addClass(OPEN_CLASS)
+            .removeClass(OPENING_CLASS);
+        }
+      }
+
+      $dropdown.data('openTimeout', setTimeout(startOpening, openDelay));
+    },
+
+    keepDropdownOpen: function($dropdown) {
+      if (!$dropdown) return
+      $dropdown.data('over', true);
+      clearTimeout($dropdown.data('closeTimeout'));
+      var $parentItem = $dropdown.data('navItem');
+      if ($parentItem) this.keepDropdownOpen($parentItem.data('parentDropdown'));
+    },
+
+    allowDropdownToClose: function($dropdown) {
+      if (!$dropdown) return
+      $dropdown.data('over', false);
+      $dropdown.data('closeTimeout', setTimeout(this.closeDropdown.bind(this, $dropdown, true), this.closeDelay));
+      var $parentItem = $dropdown.data('navItem');
+      if ($parentItem) this.allowDropdownToClose($parentItem.data('parentDropdown'));
+    },
+
+    closeItems: function($items) {
+      var nav = this;
+      $items.each(function(i, item) {
+        nav.closeDropdown($(item).data('dropdown'));
+      });
+    },
+
+    closeDropdown: function($dropdown, bubble) {
+      if (!$dropdown) return
+      var $navItem = $dropdown.data('navItem');
+      if ($navItem.data('over') || $dropdown.data('over')) return
+      $navItem.removeClass(OPEN_CLASSES);
+      this.closeItems($dropdown.removeClass(OPEN_CLASSES).children());
+      if (bubble) this.closeDropdown($navItem.data('parentDropdown'));
+    },
+
+    positionDropdown: function($dropdown) {
+      // start by resetiing the dropdown state
+      $dropdown
+        .css('maxHeight', '')
+        .removeClass(DROPDOWN_ALIGN_CLASSES);
+
+      var $navItem = $dropdown.data('navItem');
+      var $parentDropdown = $navItem.data('parentDropdown');
+      var renderBelow = $dropdown.data('nav-level') < 3;
+      var navOffset = this.$el.offset();
+      var navItemsOffset = this.$navItems.offset();
+      var itemOffset = $navItem.offset();
+      var windowHeight = $(window).height();
+      var windowScroll = $(window).scrollTop();
+      var maxX = this.$navItems.outerWidth() + navItemsOffset.left - navOffset.left;
+      var navHeight = this.$navItems.outerHeight();
+      var navItemWidth = $navItem.outerWidth();
+      var width = navItemWidth > DROPDOWN_WIDTH ? navItemWidth : DROPDOWN_WIDTH;
+      var height = $dropdown.outerHeight();
+      var minTop = navHeight;
+      var fixedBottom = navOffset.top + navHeight - windowScroll;
+      var maxHeight = windowHeight - fixedBottom - DROPDOWN_MARGIN_BOTTOM;
+
+      // allow second level menues to shift down
+      if (!renderBelow) minTop += DROPDOWN_MARGIN_TOP;
+
+      var maxBottom = minTop + maxHeight;
+      var left;
+      var top;
+      var alignmentClass = DROPDOWN_ALIGN_LEFT;
+
+      // first level drop downs
+      if (renderBelow) {
+        top = minTop;
+        left = itemOffset.left - navOffset.left;
+
+        if (left + width > maxX) {
+          alignmentClass = DROPDOWN_ALIGN_RIGHT;
+          left = left - width + navItemWidth;
+        }
+      }
+
+      // second level dropdowns
+      else {
+        var widthOffset = $parentDropdown ? $parentDropdown.outerWidth() : navItemWidth;
+        top = Math.max(itemOffset.top - navOffset.top, minTop);
+        left = itemOffset.left - navOffset.left + widthOffset;
+
+        if (left + width > maxX) {
+          alignmentClass = DROPDOWN_ALIGN_RIGHT;
+          left = left - width - navItemWidth;
+        }
+      }
+
+      // Shift menu up if is scrolls and there is space to do so
+      if (top + height > maxBottom) {
+        top = Math.max(maxBottom - height, minTop);
+      }
+
+      // update dropdown state
+      $dropdown
+        .addClass(alignmentClass)
+        .css({
+          top: top,
+          left: left,
+          maxHeight: maxHeight,
+          width: width,
+          overflow: 'auto'
+        });
+    },
+
+    showNextLevel: function(level) {
+      var checkDepth = 'maxDepth' in this.opts && level;
+      return checkDepth && level <= this.opts.maxDepth || false;
+    },
+
+    renderDropdown: function($navItem) {
+      var $dropdown = $navItem.data('dropdown');
+      if ($dropdown) return $dropdown;
+
+      var nav = this;
+      var navUrl = $navItem.data('nav-url');
+      var level = ($navItem.parent().data('nav-level') || 1) + 1
+
+      $dropdown = $('<ul class="loading theme-nav-dropdown" data-nav-level="' + level + '" />');
+      $dropdown.width(DROPDOWN_WIDTH);
+      $dropdown.scrollGuard(); // prevents overflow scrolling
+      $navItem.data('dropdown', $dropdown);
+      $dropdown.data('navItem', $navItem);
+
+      function renderItems(navData) {
+        nav.renderNavItems($dropdown, {
+          items: navData.children,
+          level: level
+        });
+        var items = $dropdown.children();
+        items.data('parentItem', $navItem);
+        items.data('parentDropdown', $dropdown);
+        // add scroll binding to hide submenus
+        $dropdown.on('scroll', nav.closeItems.bind(nav, $dropdown.children()));
+      }
+
+      nav.getNavData(navUrl).then(renderItems);
+      nav.positionDropdown($dropdown);
+
+      return $dropdown.appendTo(this.$el);
+    },
+
+    renderNavItems: function($container, opts) {
+      var nav = this;
+      $container.removeClass('loading');
+
+      if (opts.title) {
+        $container.append('<li class="theme-nav-title"><a href="' + opts.titleLink + '">' + opts.title + '</a></li>');
+      }
+
+      _.each(opts.items, function(navItem){
+        var classes = [].concat(navItem.css_classes||[]);
+        var $navItem = $('<li class="theme-nav-item" />');
+
+        if (navItem.id === nav.currentId) classes.push('selected');
+        if (navItem.display_status) classes.push(navItem.display_status);
+
+        if (nav.showNextLevel(opts.level)) {
+          if (navItem.has_child) classes.push('hasChild');
+          if (navItem.nav_url) $navItem.attr('data-nav-url', navItem.nav_url);
+        }
+
+        $navItem.addClass(classes.join(' '));
+
+        var $link = $('<a class="theme-nav-link" />')
+          .appendTo($navItem)
+          .text(navItem.name)
+          .attr({
+            href: navItem.url,
+            title: navItem.title,
+            target: navItem.target || '_self'
+          });
+
+        if (navItem.display_status === 'paywalled' && nav.paywallImage) {
+          $link.prepend(nav.paywallImage + ' ');
+        }
+
+        $container.append($navItem);
+      })
+    },
+
+    checkOverflowAfterLoad: function() {
+      var overflowWidths = this.overflowWidths || [];
+      var firstItemWidth = this.$navItems.children().first().outerWidth();
+      this.resetOverflow();
+    },
+
+    resetOverflow: function() {
+      delete this.overflowWidths;
+      this.$moreButton.detach();
+      this.$navItems.append(this.$moreMenu.children());
+      this.handleOverflow();
+    },
+
+    handleOverflow: function() {
+      var navItems = this.$navItems;
+      var moreMenu = this.$moreMenu;
+      var moreButton = this.$moreButton;
+      var visibleItems = navItems.children().not(moreButton);
+      var oldExtraItems = moreMenu.children();
+      var allItems = visibleItems.add(oldExtraItems);
+
+      var overflowWidths = this.getOverflowWidths();
+      var moreButtonWidth = this.moreButtonWidth;
+      var maxWidth = this.$navItems.width();
+      var totalWidth = 0;
+      var hasExtraItems = false;
+      var index = 0;
+
+      // fit as many items in as possible
+      while (index < overflowWidths.length) {
+        var itemWidth = overflowWidths[index];
+        if (totalWidth + itemWidth > maxWidth) {
+          hasExtraItems = true;
+          break;
+        }
+        totalWidth += itemWidth;
+        index++;
+      }
+
+      // backtrack if more button won't fit
+      while (hasExtraItems && totalWidth + moreButtonWidth > maxWidth) {
+        index--;
+        totalWidth -= overflowWidths[index];
+      }
+
+      var newExtraItems = hasExtraItems && allItems.slice(index).not(oldExtraItems);
+      var newVisibleItems = hasExtraItems && oldExtraItems.not(newExtraItems);
+
+      function changeNavLevel(delta) {
+        return function(i, navItem) {
+          navItem = $(navItem);
+          navItem.data('nav-level', delta + navItem.data('nav-level'));
+        }
+      }
+
+      function setParents(parentItem, parentDropdown) {
+        return function(i, navItem) {
+          navItem = $(navItem);
+          navItem.data('parentItem', parentItem);
+          navItem.data('parentDropdown', parentDropdown);
+        }
+      }
+
+      if (newVisibleItems) {
+        newVisibleItems.each(changeNavLevel(-1))
+        moreButton.before(newVisibleItems);
+        newVisibleItems.each(setParents(null, null))
+      }
+
+      if (newExtraItems) {
+        newExtraItems.each(changeNavLevel(1))
+        moreMenu.prepend(newExtraItems);
+        newExtraItems.each(setParents(moreButton, moreMenu))
+      }
+
+      if (!hasExtraItems) moreButton.detach();
+    },
+
+    getOverflowWidths: function() {
+      if (this.overflowWidths) return this.overflowWidths;
+
+      var overflowWidths = this.overflowWidths = [];
+      var navItems = this.$navItems.children();
+      var moreButton = this.$moreButton.appendTo(this.$navItems);
+      this.moreButtonWidth = Math.ceil(realOuterWidth(moreButton.get(0)));
+
+      navItems.each(function(i, item) {
+        overflowWidths[i] = Math.ceil(realOuterWidth(item));
+      });
+
+      return overflowWidths;
+    }
+
+  });
+
+})(jQuery, _);
+;(function($) {
+
+  var DEFAULT_DURATION = 300;
+
+  NGIN.Modules.NavService.register('SlideNav', {
+
+    initialize: function(opts) {
+      // Allow custom collapsed classes as well as the required one (for css integration)
+      this.collapsedClass = 'slideNavCollapsed ' + (this.collapsedClass || '');
+      this.duration = opts.duration || DEFAULT_DURATION;
+      this.collapseWidth = opts.collapseWidth || 0;
+      this.listCount = 0;
+      this.currentNavData = opts.data;
+      this.$html = $('html');
+      this.$nav = $('<div class="theme-nav theme-nav-style-slide" />');
+      this.$toggle = $('<span class="theme-slide-nav-toggle" />').appendTo(this.$nav);
+      this.$title = $('<div class="theme-nav-title">').appendTo(this.$nav);
+      this.$menus = $('<div class="theme-nav-menus">').appendTo(this.$nav).scrollGuard();
+      this.$overlay = $('<div class="theme-slide-nav-overlay" />').appendTo(this.$nav);
+
+      this.appendContent();
+      this.bindEvents();
+
+      this.$el.trigger('SlideNavInitialize', { navElement: this.$nav });
+    },
+
+    // Injects any pre-rendered content into the nav element in the correct location
+    appendContent: function() {
+      var content = this.$el.children().detach();
+      if (content.length) $('<div class="theme-slide-nav-content" />')
+        .append(content)
+        .insertBefore(this.$title);
+    },
+
+    bindEvents: function() {
+      this.$nav.on('hover', '[data-nav-url]', this.preload.bind(this));
+      this.$menus.on('click', '[data-nav-url]', this.loadChildNav.bind(this));
+      this.$title.on('click', '[data-nav-url]', this.loadParentNav.bind(this));
+      this.$toggle.add(this.$overlay).on('click', this.toggleMenu.bind(this));
+
+      // unbind mclose -- Removes old ngin JS menu close handler
+      $(document).unbind('click', mclose());
+    },
+
+    toggleMenu: function(e) {
+      var open = !this.$html.hasClass('slide-nav-open');
+      this.$html.toggleClass('slide-nav-open', open);
+      this.$el.trigger(open ? 'SlideNavOpen' : 'SlideNavClose', { navElement: this.$nav });
+      this.scrollToTop();
+    },
+
+    scrollToTop: function() {
+      // Doing this in an interval to fix an issue where iOS would NOT end up at
+      // the top when closing the menu. Maybe something to do with CSS animation?
+      var scrollInterval = setInterval(function(){
+        window.scrollTo(0, 0);
+      }, 20);
+      setTimeout(function(){
+        clearInterval(scrollInterval);
+      }, 300);
+    },
+
+    resize: function() {
+      this.$html.not('.slideNavCollapsed').removeClass('slide-nav-open');
+    },
+
+    renderParentContent: function(data) {
+      var topLevel = data.parent_id === null && data.node_type === null;
+
+      if (topLevel) {
+        this.$title.html(
+          '<span class="theme-nav-title-text">Main Menu</span>'
+        );
+      } else {
+        this.$title.html(
+          '<span class="theme-nav-back" data-nav-url="' + data.nav_url + '"></span>' +
+          '<a href="' + data.url + '" class="theme-nav-title-text">' + data.name + '</a>'
+        );
+      }
+    },
+
+    render: function(navData, opts) {
+      if (!this.$nav.parent(this.$el).length) this.$el.append(this.$nav);
+      var navDir = 'up';
+
+      // navDir bound as first arg when rendering after navigation
+      if (typeof navData === 'string') {
+        navDir = navData;
+        navData = opts;
+      }
+
+      var renderParent = navDir !== 'down';
+      var newMenu = $('<ul class="theme-nav-menu" />');
+      var listData = renderParent ? navData.siblings : navData.children;
+      var parentData = renderParent ? navData.parent : navData;
+
+      // Build Lists
+      for (var i = 0; i < listData.length; i++) {
+        var navItem = $('<li class="theme-nav-item"/>')
+        var data = listData[i];
+        var linkContent = data.name;
+
+        if (data.display_status == "paywalled") linkContent = this.paywallImage + ' ' + linkContent
+
+        var $link = $('<a class="theme-nav-link"/>')
+          .html(linkContent)
+          .attr({
+             href: data.url,
+             title: data.title,
+             id: data.id,
+             target: data.target || '_self'
+          });
+        var forwardArrow = '';
+
+        if (data.display_status) navItem.addClass(data.display_status);
+        if (data.id === this.currentId) navItem.addClass('selected');
+        if (data.has_child) {
+          navItem.addClass('hasChild');
+          forwardArrow = $('<span class="theme-nav-forward ' + data.id + '"></span>');
+          if (data.nav_url) forwardArrow.attr('data-nav-url', data.nav_url);
+        }
+
+        navItem
+          .append($link, forwardArrow)
+          .appendTo(newMenu)
+      }
+
+      // render/preload parent data if needed (do this after preloading
+      // children since child pages are more likely to be needed first).
+      this.renderParentContent(parentData);
+
+      // Place List Content
+      this.$menus.append(newMenu);
+
+      // Sets the first menu as current (will animate to next menu if needed)
+      this.$menus.children().first();
+
+      // Animate if we have rendered more than one list
+      if (this.listCount++) {
+        if (renderParent) this.transitionToParent();
+        else this.transitionToChildren();
+      }
+    },
+
+    transitionToParent: function() {
+      var menus = this.$menus.children();
+      var newMenu = menus.last().addClass('theme-nav-parent-in');
+      var oldMenu = menus.first().addClass('theme-nav-children-out');
+      newMenu.insertBefore(oldMenu);
+      setTimeout(function() {
+        newMenu.removeClass('theme-nav-parent-in');
+      }, 50);
+      setTimeout(function() {
+        oldMenu.remove();
+      }, this.duration);
+    },
+
+    transitionToChildren: function() {
+      var menus = this.$menus.children();
+      var newMenu = menus.last().addClass('theme-nav-children-in');
+      var oldMenu = menus.first().addClass('theme-nav-parent-out');
+      setTimeout(function() {
+        newMenu.removeClass('theme-nav-children-in');
+      }, 50);
+      setTimeout(function() {
+        oldMenu.remove();
+      }, this.duration);
+    },
+
+    loadParentNav: function(e) {
+      this.getNavData($(e.currentTarget).attr('data-nav-url'))
+        .then(this.render.bind(this, 'up'));
+    },
+
+    loadChildNav: function(e) {
+      this.getNavData($(e.currentTarget).attr('data-nav-url'))
+        .then(this.render.bind(this, 'down'));
+    }
+
+  });
+
+})(jQuery);
+;(function($, _){
+
+  // Requires teh $.fn.scrollGuard module.
+
+  var COMPACT_CLASS = 'compact-style';
+
+  var NNB = NGIN.NetworkNavBar = function(selector, config) {
+    this.dropDownStyle = config.displayStyle === 'drop_down_menu'
+    this.$el = $(selector);
+    this.el = this.$el[0];
+    this.$title = this.$el.find('.theme-network-bar-title');
+    this.$sites = this.$el.find('.theme-network-bar-sites').scrollGuard();
+    this.$body = $('body');
+    this.$doc = $(document);
+    this.bindEvents();
+  }
+
+  _.extend(NNB.prototype, {
+
+    bindEvents: function() {
+      $(window).on('resize', this.resize.bind(this));
+      _.delay(this.resize.bind(this));
+    },
+
+    renderDropDown: function() {
+      this.$el.addClass(COMPACT_CLASS);
+      this.$sites.detach();
+      this.tip = NGIN.Modules.Tip(this.$sites, {
+        style: 'theme-network-bar-dropdown',
+        width: 'target',
+        target: this.$title,
+        target_anchor: 'bl',
+        tip_anchor: 'tl',
+        show_on: ['.theme-network-bar-title', 'click'],
+        hide_on: [['.theme-network-bar-title', 'click'], [document, 'click'], [window, 'scroll']],
+      });
+    },
+
+    renderIconList: function() {
+      this.$sites.detach();
+      if (this.tip) this.tip.destroy();
+      this.$sites.insertAfter(this.$title).show();
+      this.$el.removeClass(COMPACT_CLASS);
+    },
+
+    resize: function() {
+      this.renderIconList();
+      var dropDown = this.dropDownStyle || this.el.scrollWidth > this.el.offsetWidth;
+      if (dropDown) this.renderDropDown();
+    }
+
+  });
+
+})(jQuery, _);
+;(function($, _){
+
+  var EXPANDED_CLASS = 'network-nav-expanded';
+
+  var NNM = NGIN.NetworkNavMenu = function(config) {
+    this.$title = $(config.title);
+    this.$sites = $(config.sites);
+    this.$mobileNav = this.$title.closest('.theme-mobile-nav');
+
+    this.$sites.find('.theme-nav-menus').scrollGuard();
+    this.$sites.detach();
+
+    this.bindEvents();
+  }
+
+  _.extend(NNM.prototype, {
+
+    bindEvents: function() {
+      this.$title.on('click', '.theme-nav-back', this.transitionToNetwork.bind(this));
+      this.$sites.on('click', '.theme-nav-forward', this.transitionToSite.bind(this));
+      this.$mobileNav.on('SlideNavInitialize', this.moveSites.bind(this));
+      this.$mobileNav.on('SlideNavClose', _.debounce(this.transitionToSite.bind(this), 200));
+    },
+
+    // do this only after the slide nav inits since this gets initialized before the slide nav module
+    moveSites: function(event, eventData) {
+      this.$sites.appendTo(eventData.navElement);
+    },
+
+    transitionToSite: function() {
+      this.$mobileNav.removeClass(EXPANDED_CLASS);
+    },
+
+    transitionToNetwork: function() {
+      this.$mobileNav.addClass(EXPANDED_CLASS);
+    }
+
+  });
+
+})(jQuery, _);
+;(function($, _) {
+
+  var $html = $('html');
+  var htmlClass = 'page-manager-visible';
+
+  var PM = NGIN.Modules.PageManager = function(opts) {
+    this.config = PM.CONFIG || {}
+    this.opts = opts || {};
+    this.$pageManager = $('.sn-pageManager');
+    this.$pageManagerToggle = this.$pageManager.find('.sn-togglePages');
+    this.$pageManagerContent = $('.sn-structure.sn-sidebarItem');
+    this.$tabs = $('.sn-nav.sn-nav-tabs li');
+    this.$tabContent = $('.sn-tabContainer');
+    this.$pageLinks = $('.sn-pages li a').not('.cmsNavButton a');
+    this.$editModeDisabled = $('.sn-edit-mode-disabled');
+    this.$editModeDisabledTip = this.$editModeDisabled.find('.sn-tooltip');
+    this.bindEvents();
+  }
+
+  PM.config = function(config) {
+    PM.CONFIG = config;
+  }
+
+  // Use jQuery UI sortable interaction to handle page manager's fixed position.
+  // Use the scriptaculous style sortable callbacks for backward compatability.
+  PM.sortable = function(elementId, pageId) {
+    var $el = $('#' + elementId);
+    var childSelector = '.drag';
+    var url = '/page/order/' + pageId;
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    function updateOrder(event, ui) {
+      var params = { authenticity_token: csrfToken };
+
+      params[elementId + '[]'] = _.map($el.children(childSelector), function(child) {
+        return (child.id.match(Sortable.SERIALIZE_RULE) || [])[1];
+      });
+
+      new Ajax.Request(url, {
+        asynchronous: true,
+        evalScripts: true,
+        parameters: params
+      });
+    }
+
+    $el.sortable({
+      axis: 'y',
+      items: childSelector,
+      update: updateOrder
+    });
+  }
+
+  PM.prototype.bindEvents = function() {
+    this.$pageManagerToggle
+      .on('click', this.toggle.bind(this));
+    this.$editModeDisabled
+      .on('mouseover', this.showEditModeDisabledTip.bind(this))
+      .on('mouseout', this.hideEditModeDisabledTip.bind(this));
+    this.$tabs
+      .on('click', this.showTab.bind(this));
+
+    // prevent click of links in pages & navigation tab
+    this.$pageLinks.each(function() {
+      $(this).replaceWith($('<p>' + this.innerHTML + '</p>'));
+    });
+
+    // decide to show or not based on window size
+    if (this.config.minWidth) {
+      this.resize()
+      $(window).on('resize', this.resize.bind(this));
+    }
+  }
+
+  PM.prototype.toggle = function() {
+    var content = this.$pageManagerContent;
+    var activate = !content.hasClass('active');
+    content.toggleClass('active', activate);
+    if (activate) this.resetTabs();
+  }
+
+  PM.prototype.resize = function() {
+    var visible = $html.hasClass(htmlClass);
+    var hide = window.innerWidth < this.config.minWidth;
+    if (hide && visible) $html.removeClass(htmlClass);
+    else if (!hide && !visible) $html.addClass(htmlClass);
+  }
+
+  PM.prototype.showTab = function(e) {
+    this.$tabs.removeClass('active');
+    this.$tabContent.hide();
+    $(e.currentTarget)
+      .addClass('active')
+      .find('.sn-tabContainer').show();
+  }
+
+  PM.prototype.resetTabs = function() {
+    this.$tabs.removeClass('active').first().addClass('active');
+    this.$tabContent.hide().first().show();
+  }
+
+  PM.prototype.showEditModeDisabledTip = function() {
+    this.$editModeDisabledTip.stop().fadeIn();
+  }
+
+  PM.prototype.hideEditModeDisabledTip = function() {
+    var tip = this.$editModeDisabledTip
+    tip.stop().fadeOut(200, function() {
+      tip.css({ opacity : "1" });
+    });
+  }
+
+})(jQuery, _);
+;(function($) {
+
+  NGIN.Modules.GamesSlider = {
+    init: function() {
+      return new GamesSlider();
+    }
+  };
+
+  function GamesSlider() {
+    this.$slider = $('.games-slider');
+    this.$selected = this.$slider.find('.selected');
+    this.scrollToSelected();
+  }
+
+  // Set scrollLeft of slider so that selected game is visible
+  GamesSlider.prototype.scrollToSelected = function() {
+    if (this.$selected.length) {
+      var scrollLeft = this.$slider.scrollLeft();
+
+      var left = Math.round(
+        this.$selected.offset().left
+        - this.$slider.offset().left
+      );
+      var leftWidth = left + this.$selected.outerWidth();
+
+      // Selected game is off to left
+      if (left < 0) {
+        scrollLeft += left;
+      }
+      // Selected game is off to right
+      else if (leftWidth > this.$slider.outerWidth()) {
+        scrollLeft += leftWidth - this.$slider.outerWidth();
+      }
+
+      if (scrollLeft) this.$slider.scrollLeft(scrollLeft);
+    }
+  }
+
+})(jQuery);
+;(function($, _){
+
+  // SHARED VARIABLES
+
+  var searchModal;
+  var searchTerm;
+  var loadSearchData;
+
+  // Kyes that don't change the search value are ignored and include:
+  // shift, ctrl, alt/opt, cmd, win/cmd, left, up, right, down
+  var ignoredKeys = [16, 17, 18, 91, 93, 37, 38, 39, 40];
+
+  // Some events run on click or certain key press. This check
+  // will pass if the event was not a key event, or if the key event
+  // matches the given key code.
+  function allowKeys(e, code) {
+    if (e.type.indexOf('key') === -1) return true;
+    return e.which === code;
+  }
+
+  function ignoredKeyEvent(e) {
+    return e && e.type.indexOf('key') !== -1 && ignoredKeys.indexOf(e.which) !== -1;
+  }
+
+  // PAGE SEARCH BOX (one or more per page)
+
+  var PSB = NGIN.PageSearchBox = function(selector, config) {
+    this.$el = $(selector);
+    this.$input = this.$el.find(config.inputElement);
+    this.$submit = this.$el.find(config.submitElement);
+    this.$clear = this.$el.find(config.clearElement).hide();
+    this.bindEvents();
+  }
+
+  _.extend(PSB.prototype, {
+
+    bindEvents: function() {
+      var self = this;
+      this.$input
+        .on('focus', this.load.bind(this))
+        .on('keyup', this.update.bind(this))
+        .on('keydown', this.submit.bind(this));
+      this.$submit
+        .on('click', function(event) {
+          self.load();
+          self.submit(event);
+        });
+      this.$clear
+        .on('click', this.clear.bind(this));
+    },
+
+    val: function(query) {
+      var setting = !!arguments.length;
+      if (setting) {
+        this.$clear.toggle(!!query);
+        return this.$input.val(query);
+      } else {
+        return this.$input.val();
+      }
+    },
+
+    update: function(e) {
+      if (searchModal && !ignoredKeyEvent(e)) {
+        var val = this.$input.val();
+        var empty = !val.trim();
+        this.$clear.toggle(!empty);
+        searchModal.update(val);
+      }
+    },
+
+    submit: function(e) {
+      if (!searchModal || !allowKeys(e, 13)) return
+
+      this.update();
+      searchModal.show();
+      e.preventDefault();
+    },
+
+    clear: function(e) {
+      e.preventDefault();
+      this.$input.val('');
+      this.update();
+    },
+
+    load: function() {
+      if (!loadSearchData) {
+        loadSearchData = $.ajax('/navigation/page_search')
+      }
+    }
+
+  });
+
+  // PAGE SEARCH MODAL (only one per page)
+
+  var PSM = NGIN.PageSearchModal = function(selector, config) {
+    if (searchModal) return searchModal;
+
+    searchModal = this;
+
+    this.$el = $(selector).appendTo('body');
+    this.$results = this.$el.find(config.resultsElement).scrollGuard();
+    this.$status = this.$el.find(config.statusElement);
+    this.$spinner = this.$el.find(config.spinnerElement);
+    this.$close = this.$el.find(config.closeElement);
+
+    this.bindEvents(config);
+
+    this.searchBox = new PSB(this.$el, {
+      inputElement: config.inputElement,
+      clearElement: config.clearElement
+    });
+  }
+
+  _.extend(PSM.prototype, {
+
+    sortBy: 'page_title',
+
+    resultTmpl: _.template(
+      '<div class="theme-search-result" data-url="/page/nav_links_redirect/<%= page_node_id %>">' +
+        '<div class="theme-search-result-info">' +
+          '<span class="theme-search-result-primary"><%= page_title %></span>' +
+          '<span class="theme-search-result-secondary"><%= parent_button_title %></span>' +
+        '</div>' +
+      '</div>'
+    ),
+
+    bindEvents: function(config) {
+      this.$el.on('click', this.clickToHide.bind(this));
+      this.$close.on('click', this.clickToHide.bind(this));
+      this.$el.on('click', '[data-url]', this.navigate.bind(this));
+      $(document).on('keydown', this.hide.bind(this));
+    },
+
+    show: function() {
+      this.visible = true;
+      this.render();
+      this.$el.fadeIn();
+      this.searchBox.$input.focus();
+    },
+
+    clickToHide: function(e) {
+      if (e.target === e.currentTarget) this.hide(e);
+    },
+
+    navigate: function(e) {
+      var url = $(e.currentTarget).data('url');
+      if (url) $.get(url);
+    },
+
+    hide: function(e) {
+      if (!allowKeys(e, 27)) return;
+      this.visible = false;
+      this.$el.fadeOut();
+    },
+
+    update: function(query) {
+      this.query = query;
+      this.searchBox.val(query);
+      if (this.visible) this.render();
+    },
+
+    filteredResults: function(data) {
+      var query = this.query && this.query.trim();
+      if (!query) return data;
+
+      var sortBy = this.sortBy;
+      var queryRx = new RegExp(query, 'i');
+
+      return _.filter(data, function(item) {
+        return queryRx.test(item[sortBy]);
+      });
+    },
+
+    setStatus: function(matches, total) {
+      var statusText = matches ? 'Showing ' + matches + ' of ' + total : 'No results.';
+      this.$status.text(statusText);
+    },
+
+    render: function() {
+      var search = this;
+      if (search.waitingToRender) return;
+
+      search.$results.empty().append(search.$spinner);
+      search.waitingToRender = true;
+
+      loadSearchData.then(function(data) {
+        var results = data.result || [];
+        var filteredResults = search.filteredResults(results);
+        var markup = _.map(filteredResults, search.resultTmpl).join('');
+
+        search.waitingToRender = false;
+        search.setStatus(filteredResults.length, results.length);
+        search.$results
+          .empty()
+          .append(this.$status)
+          .append(markup);
+      })
+    }
+
+  });
+
+})(jQuery, _);
+;(function($, _){
+
+  var searchModal
+
+  // SEARCH BOX
+
+  var GSB = NGIN.GoogleSearchBox = function(selector, config) {
+    this.$el = $(selector);
+    this.$input = this.$el.find(config.inputElement);
+    this.$submit = this.$el.find(config.submitElement);
+    this.$clear = this.$el.find(config.clearElement).hide();
+    this.bindEvents();
+  }
+
+  _.extend(GSB.prototype, {
+
+    bindEvents: function() {
+      this.$input
+        .on('keydown', this.submitIfEnter.bind(this))
+        .on('keyup', this.update.bind(this));
+      this.$submit.on('click', this.submit.bind(this));
+      this.$clear.on('click', this.clear.bind(this));
+    },
+
+    update: function() {
+      var val = this.$input.val().trim();
+      this.$clear.toggle(!!val);
+    },
+
+    submit: function(e) {
+      if (!searchModal) return
+      var api = searchModal.api();
+      var query = this.$input.val().trim();
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (api && query) {
+        api.execute(query);
+        this.showModal();
+      }
+    },
+
+    clear: function(e) {
+      e.preventDefault();
+      this.$input.val('');
+    },
+
+    submitIfEnter: function(e) {
+      if (e.which == 13) this.submit(e);
+    },
+
+    showModal: function() {
+      if (searchModal) searchModal.show();
+    },
+
+    hideModal: function() {
+      if (searchModal) searchModal.hide();
+    }
+
+  });
+
+  // SEARCH MODAL
+
+  var GSM = NGIN.GoogleSearchModal = function(selector, config) {
+    if (searchModal) return searchModal;
+    searchModal = this;
+    this.$el = $(selector);
+    this.$close = this.$el.find(config.closeElement);
+    this.bindEvents();
+  }
+
+  _.extend(GSM.prototype, {
+
+    api: function() {
+      return google.search.cse.element.getElement('GoogleSearch');
+    },
+
+    bindEvents: function() {
+      this.$close.on('click', this.hide.bind(this));
+      this.$el.on('click', this.clickToHide.bind(this));
+    },
+
+    show: function() {
+      this.$el.fadeIn();
+    },
+
+    hide: function() {
+      var api = searchModal.api();
+      if (api) api.clearAllResults();
+      this.$el.fadeOut();
+    },
+
+
+    clickToHide: function(e) {
+      if (e.target === e.currentTarget) this.hide(e);
+    }
+
+  });
+
+})(jQuery, _);
+
+
+
+
+
+
+
+
+
+
+
+

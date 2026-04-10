@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>  <html lang="en-us" id="ngin2377" class="ie ie6 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 7]>     <html lang="en-us" id="ngin2377" class="ie ie7 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 8]>     <html lang="en-us" id="ngin2377" class="ie ie8 lte9 lte8"> <![endif]-->
+<!--[if IE 9]>     <html lang="en-us" id="ngin2377" class="ie ie9 lte9"> <![endif]-->
+<!--[if gt IE 9]>  <html lang="en-us" id="ngin2377"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en-us" id="ngin2377"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  
+
+    <script>
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push({ intercom: { renderIntercom: false } })
+    </script>
+    <script src="https://app-assets3.sportngin.com/javascripts/se-analytics-js.umd.min.js?17756099461"></script>
+    <script>
+      window.seAnalyticsGateway = /\.(sportngin\.com|ngin-staging\.com|sportngin\.com\.dev)$/.test(window.origin) === false
+      window.addEventListener('message', function(event){
+        if (event.data === 'utd:ready') {
+
+          var displayAds = (false || false);
+          var platformDL = {'siteId': '2377', 'siteName': 'Campton United Soccer Club',
+                            'siteShortName': 'Campton United', 'sportType': 'soccer',
+                            'addrState': 'IL', 'displayAds': displayAds,
+                            'inEditMode': false,
+                            'propertySubSection': 'registration', 'property': 'Ngin'};
+          var quantcastDL = {'quantcastID': ''};
+          var elevioAdditionalGroups = ["ngin_super_reg:0", "Ngin:registration"];
+
+          window.seAnalytics.push({ type: 'dataLayerData', data: {
+            platform: platformDL,
+            quantcast: quantcastDL,
+            elevioAddlGroups: elevioAdditionalGroups,
+              ga_site_config: {
+                'id': '',
+                'id_ga4': 'G-W0FTQXN0KG',
+                'domains': ["www.camptonunited.com","camptonunited.sportngin.com"]
+              }
+          } })
+        }
+      })
+      window.seAnalytics = new window['se-analytics-js'].SeFeAnalytics({
+        platProp: 'ngin',
+        platformSubSec: 'registration',
+        currentEnv: 'production',
+        orgId: 2333
+      })
+    </script>
+
+  <script>
+  function inIframe() {
+    try {
+      return window.self !== window.top;
+    } catch (e) {
+      return true;
+    }
+  }
+  </script>
+
+  <!-- Google Tag Manager for NGIN -->
+  <script>
+  if(!inIframe()) {
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TMK6MGB');
+  }
+  </script>
+  <!-- End Google Tag Manager for NGIN-->
+
+  <!-- Google Tag Manager for SE Global -->
+  <script>
+  if(!inIframe()) {
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KGG8ZWR');
+  }
+  </script>
+  <!-- End Google Tag Manager for SE Global -->
+
+
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="d+AFBZe2fswcI/wsK1Ogem5rh8SeRZUyBdz9Ct3gMMGv0aeYhinwlP0AAlEf2MHB6AoGU9HTDF40ttB6SxrZQQ==" />
+<meta name="trace-id" content="f7a990d6-392c-4dba-8503-6b51fd47038b" />
+  <!-- survey_steps -->
+    <script language="JavaScript" type="text/javascript">
+      <!--
+      //break out.
+      if (parent.frames.length > 0) {
+      parent.location.href = location.href
+      }
+      //-->
+    </script>
+
+  <title>2014 Winter Academy | 2014 Winter Academy | Campton United Soccer Club</title>
+  <link rel="shortcut icon" href="https://assets.ngin.com/site_files/2377/favicon.ico" />
+
+
+  
+<!--[if IE 6]>
+  <script src="/javascripts/DD_belatedPNG-0.0.8a.js"></script>
+  <script>
+    DD_belatedPNG.fix('div, span, img, ol, ul, li, a, h1, h2, h3, h4, h4, h5, h6, p, strong, em, dl, dt, dd, input');
+  </script>
+<![endif]-->
+
+
+  <script>
+  var recaptchaSiteKey = "6LePJx8TAAAAACXrjU21ZdxvkXD_rh3yzhSeoJ0a"
+</script>
+<script src="https://app-assets1.sportngin.com/javascripts/grecaptcha.js?17756099461"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=recaptchaOnloadCallback&render=explicit" async defer></script>
+
+  <link rel="stylesheet" media="screen" href="https://app-assets2.sportngin.com/site_stylesheets_secure/2377/page_elements.css?17749823491" />
+  <link rel="stylesheet" media="screen" href="https://app-assets2.sportngin.com/site_stylesheets_secure/2377/sports.css?17749823491" />
+  <link rel="stylesheet" media="screen" href="https://app-assets1.sportngin.com/stylesheets/sn/shared_components.css?17749823491" />
+    <link rel="stylesheet" media="screen" href="https://app-assets2.sportngin.com/site_stylesheets_secure/2377/itasca/default.css?17749823491" />
+    <link rel="stylesheet" media="screen" href="https://app-assets3.sportngin.com/site_stylesheets_secure/2377/itasca/theme.css?17749823491" />
+  <link rel="stylesheet" media="print" href="https://app-assets3.sportngin.com/stylesheets/print/website_print.css?17749823491" />
+
+  <link rel="stylesheet" media="screen" href="https://s3.amazonaws.com/sportngin-snap-production/ui_themes/platform/latest/main.css" />
+  <link rel="stylesheet" media="screen" href="//se-aws-snap.sportngin.com/sportngin-snap-production/ui_themes/ngin/latest/reg-admin.css?20190108" />
+  <link rel="stylesheet" media="screen" href="//se-aws-snap.sportngin.com/sportngin-snap-production/ui_themes/ngin/latest/ngin-bar.css?20190108" />
+
+  <!--[if IE 9]>
+  <script type="text/javascript" charset="utf-8">var IE = "9";</script>
+  <link rel="stylesheet" media="screen" href="https://app-assets1.sportngin.com/stylesheets/ie9/default_ie9.css?17749823491" />
+<![endif]-->
+
+<!--[if IE 8]>
+  <script type="text/javascript" charset="utf-8">var IE = "8";</script>
+<![endif]-->
+
+<!--[if IE 7]>
+  <script type="text/javascript" charset="utf-8">var IE = "7";</script>
+<![endif]-->
+
+<!--[if IE 6]>
+  <script type="text/javascript" charset="utf-8">var IE = "6";</script>
+<![endif]-->
+
+<!--[if lte IE 6]>
+  <script type="text/javascript" charset="utf-8">var IE = "6";</script>
+<![endif]-->
+
+<!--[if !IE]><!--><script type="text/javascript" charset="utf-8">var IE = null;</script><!-- <![endif]-->
+
+
+  
+
+  <script src="https://app-assets3.sportngin.com/javascripts/jquery/jquery-3.7.1.min.js?17756099461"></script>
+<script src="https://app-assets1.sportngin.com/javascripts/jquery/jquery-migrate-3.4.1.min.js?17756099461"></script>
+<script type='text/javascript'>
+  var $j = jQuery.noConflict();
+  // $.browser polyfill — removed in jQuery 1.9, needed by third-party plugins (TN3, dataTables, postMessage)
+  if (!jQuery.browser) {
+    (function() {
+      var ua = navigator.userAgent.toLowerCase();
+      var match = /(chrome)[ \/]([\w.]+)/.exec(ua) ||
+                  /(webkit)[ \/]([\w.]+)/.exec(ua) ||
+                  /(opera)(?:.*version)?[ \/]([\w.]+)/.exec(ua) ||
+                  /(msie) ([\w.]+)/.exec(ua) ||
+                  ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+))?/.exec(ua) || [];
+      jQuery.browser = {};
+      if (match[1]) {
+        jQuery.browser[match[1]] = true;
+        jQuery.browser.version = match[2] || "0";
+      }
+      if (jQuery.browser.chrome) jQuery.browser.webkit = true;
+      else if (jQuery.browser.webkit) jQuery.browser.safari = true;
+    })();
+  }
+</script>
+
+
+  <script>
+//<![CDATA[
+  window.nginSite = {"domain_name":"camptonunited.com","subdomain":"www","name":"Campton United Soccer Club","short_name":"Campton United","secure_subdomain":"camptonunited"}
+
+//]]>
+</script>
+  
+
+  <style type="text/css">
+    #surveyNameHeader h1{
+      background-image: url(https://assets.ngin.com/site_files/2377/siteMiniHeader.jpg);
+    }
+     .async-hide { opacity: 0 !important}
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="https://assets.ngin.com/site_files/2377/2377_regStyles.css" />
+
+  
+<style type="text/css">
+html {
+  background-color: #000000;background-image: url(https://cdn1.sportngin.com/attachments/background_graphic/398d-213148785/Website_background.png);background-repeat: repeat;background-position: center top;background-attachment: fixed;
+}
+</style>
+
+
+    <script src="https://app-assets2.sportngin.com/javascripts/base_packaged.js?17756099461"></script>
+<script src="https://app-assets1.sportngin.com/javascripts/angular_packaged.js?17756099461"></script>
+
+  
+  
+
+  <script src="https://app-assets2.sportngin.com/javascripts/jquery/jquery.toolbar.min.js?17756099461"></script>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="//se-aws-snap.sportngin.com/sportngin-snap-production/ui_themes/inline-manual/1/main.css?20190108" type="text/css" />
+
+  <script>
+      window.inlineManualOptions = {
+        tracking: {
+          enabled: false
+        }
+      }
+  </script>
+
+  <script>
+      NGIN.inlineManual.setVars({
+        in_edit_mode: false,
+        org_id: 2333,
+        
+        site_name: "Campton United Soccer Club",
+        site_short_name: "Campton United",
+        site_url: "https://www.camptonunited.com",
+        site_id: 2377
+      });
+
+  </script>
+
+  <script>!function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.cacb2d9a339b3500c03525980ca2a24c.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();</script>
+
+
+  
+
+    
+
+
+
+  <link rel="stylesheet" media="screen" href="https://s3.amazonaws.com/sportngin-snap-production/ui_themes/ngin/latest/main.css" />
+  <img data-svg style="display:none;" src="https://s3.amazonaws.com/sportngin-snap-production/ui_themes/assets/latest/images/system-sprite.svg">
+<script>
+// AJAX the src of elements with a data-svg attribute, and append results to the body
+$j('[data-svg]')
+  .each(function() { injectSvg(this); }) // …when page first loads
+  .on('load', function() { injectSvg(this); }); // …if src is updated (e.g., livereload)
+
+function injectSvg(element) {
+  $j.get(element.src, function(data) {
+    // Create (or find) a div with an ID like the SVG's filename
+    var id = element.src.replace(/^.*\/([^\/]+.svg)/,'$1').replace(/[^a-z0-9_-]/gi,'-');
+    var div = $j('#' + id)[0] || $j('<div id="' + id + '"/>').insertAfter(element);
+    $j(div).html($j(data).find('svg'));
+  });
+}
+</script>
+
+</head>
+
+<body id="survey_steps" class="itasca user_mode">
+    <script>
+//<![CDATA[
+window.seAnalytics.push(JSON.parse('{"type":"pageView","data":{"depth1":"Sitebuilder","depth2":"Registration","survey_id":47086,"survey_sport":"soccer","survey_background_screen_enabled":false,"survey_monetary":true,"survey_type":"","depth3":"Welcome","title":"2014 Winter Academy"}}'))
+//]]>
+</script>
+  <!-- Needs to be immediately after the opening <body> tag -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TMK6MGB" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGG8ZWR" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  
+  <div id="top"></div>
+    <div id="siteContainer2" class="siteContainer">
+
+          
+      <div id="ngin-bar"></div>
+      <script>
+        const DOMAIN_SUFFIXES = ['sportngin.com', 'sportsengine.com', 'stage.ngin-staging.com', 'sestage.us', 'sportngin.com.dev', 'sportsengine.com.dev'];
+        document.documentElement.addClassName('has-se-bar');
+        window.nginBarConfig = {
+          signOutUrl: '/logout',
+          signInUrl: '/login',
+          signInUserReturnToOverride: signInUserReturnToOverride(),
+          signOutUserReturnToOverride: signOutUserReturnToOverride(),
+          signInReloadOverrideUrl: signInReloadUrl(),
+          coreUrl: '/core',
+          profileDropdownLinks: 
+      [{
+        label: 'Connect to Site',
+        href: '/account/choose_personas/2377',
+        events: {
+          'click': function(e, element) {
+            e.preventDefault();
+            load_lbox($(element));
+            valid.activate();
+          }
+        }
+      }]
+    ,
+          app: '',
+          ccpa: true,
+          mobileNav: false,
+          loggedIn: false,
+          orgId: 2333
+        }
+        function isSEDomain() {
+          return DOMAIN_SUFFIXES.some((domainSuffix) => window.location.hostname.endsWith(domainSuffix))
+        }
+        function isVanityDomain() {
+          return !this.isSEDomain()
+        }
+        function isCore() {
+          return window.location.pathname.startsWith("/core")
+        }
+        function signInUserReturnToOverride() {
+          if (isSEDomain()) {
+            return window.location.href;
+          } else {
+            return "https://login.sportngin.com/check_login?next_url=" + window.location.href;
+          }
+        }
+        function signOutUserReturnToOverride() {
+          if (isCore()) {
+            return undefined;  // resulting in session_ended page with correct query string params
+          } else {
+            return window.location.href;
+          }
+        }
+        function signInReloadUrl() {
+          return window.location.href.replace("user_return_to=","urt=");  // lots to discover here..
+                                                                          //  for now.. simply obfuscate user_return_to so
+                                                                          //  we dont screw with the URL too much.. and do so
+                                                                          //  only if that query string param is not URL encoded
+        }
+      </script>
+      <script async src=https://ngin-bar.sportngin.com/nginbar.js></script>
+    
+
+      <div id="tstRegistrationHeader">
+        <h1>SportsEngine Registration: Campton United Soccer Club</h1>
+        
+        
+      </div>
+        <div id="surveyNameHeader">
+          <h1>2014 Winter Academy</h1>
+        </div>
+
+        <div id="pageContentContainer" class='clearfix'>
+
+            <div id="panelOne">
+              <div class="subNavContainer">
+                <div id="sequenceMenu">
+
+                        <div class="subNav noHeader">
+    <ul id="formsBin" class="steps">
+
+
+        <li class='enabled selected'><span>Welcome</span></li>
+
+
+
+
+
+        <li id="form_264342" class="enabled incomplete"><span>Player & Guardian Information</span></li>
+<li id="form_264343" class="enabled incomplete"><span>Organization Options</span></li>
+<li id="form_264344" class="enabled incomplete"><span>Waiver</span></li>
+
+
+        
+        <li class='enabled incomplete'><span>Review</span></li>
+    <li class='enabled incomplete'><span>Suggested Add-Ons</span></li>
+
+          <li class='enabled incomplete'><span>Confirmation</span></li>
+
+
+      
+    </ul>
+  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div id="panelTwo">
+              <div id="displayBodyContent">
+                <div id="errorNotice">
+  
+  
+  
+  
+  
+</div>
+
+                <div id="yieldContent">
+                  
+  <h2 id="displayBodyHeader" class=""><span>2014 Winter Academy</span></h2>
+
+
+                  <p class="pageElement noEntry">
+  The Registration "2014 Winter Academy" is not currently available.<br/>
+    This Registration closed on 05/15/2023, 11:59pm CDT.
+    <br/>
+  <a href="https://www.camptonunited.com">Click here to return to home page</a>
+</p>
+
+
+                </div>
+                <div class="clearAll"></div>
+              </div>
+            </div>
+
+        </div><!--  closing pageContentContainer  -->
+        <div class="footerPush"></div>
+    </div><!--  closing siteContainer2  -->
+    <div id="siteFooter">
+      <ul>
+        <li><a href="/legal/terms_of_use" class="legalLink">Terms of Use</a></li>
+          <li><a href="/legal/privacy_policy" class="legalLink">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <script type="text/javascript">
+      window.addEventListener('message', function(event){
+        if (event.data === 'utd:ready') {
+          window.fullSizeAnalytics.seDataLayer.mergeToDL('appCuesData', {})
+          window.fullSizeAnalytics.seDataLayer.pushEventToDL('appCues:ready')
+        }
+      })
+    </script>
+    
+    
+    
+
+    
+</body>
+</html>

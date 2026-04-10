@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="pl-layout--on-gray">
+  <head>
+    <title>SportsEngine | Sign In Step 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+
+    <link rel="stylesheet" href="https://s3.amazonaws.com/sportngin-snap-production/ui_themes/user-service/latest/main.css" />
+    <link rel="icon" type="image/png" href="https://s3.amazonaws.com/sportngin-snap-production/ui_themes/assets/latest/images/sportsengine-app-icon-sm.png" />
+    <script src="https://user.sportngin.com/assets/application-13611772fb0427e2d659493bb2723746fa87357d4eab59d7f028305fa3ca1691.js"></script>
+      <script>
+  window.seEnvironment = "production"
+  const event = new Event('envIsSet')
+  dispatchEvent(event)
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M67J9FB');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KGG8ZWR');</script>
+<!-- End Google Tag Manager -->
+<script>
+  var analyticsTracker = function() {
+    document.querySelectorAll('[sem-click]').forEach(function(el) {
+      el.addEventListener('click', (e) => {
+        var inputAction = e.target.getAttribute('sem-action')
+        var semAction = inputAction.substring(inputAction.indexOf('.') + 1);
+        var pageDepth1 = e.target.getAttribute('sem-category')
+        var pageDepth2 = e.target.getAttribute('sem-label')
+
+        window.seAnalytics.trackEvent('seEvent', { depth1: pageDepth1,
+                                                   depth2: pageDepth2,
+                                                   action: semAction,
+                                                   event_type: 1 });
+      }, false);
+    });
+  };
+  window.onload = analyticsTracker;
+</script>
+
+
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="C1Q6dNu8Mre-PuMULOdPmg4DmFwMlekJEmoSA8YLqXCW2TVOik4ZFgbUaEV1AW0a7K7OauYdGBML1OhNmYBfEg" />
+<meta name="trace-id" content="f27a88c9-016a-4ad5-bca0-dd8ae35de611" />
+  </head>
+
+  <body>
+    <div class="user-service-layout">
+      
+
+
+
+
+      <div class="user-service-card">
+        <div class="user-service-card__header">
+            <img class="user-service-card__header__logo" alt="SportsEngine" src="https://user.sportngin.com/assets/sportsengine-logo-color-black-7af13fb027dd6d51c8ca24436cc9ce224e52b71d27677a4f3403fa5dbfe8c2f2.svg" />
+        </div>
+
+        
+
+<form class="new_user" id="new_user" action="https://user.sportngin.com/users/sign_in" accept-charset="UTF-8" method="post"><input type="hidden" name="authenticity_token" value="WGaEH2xmy3aQGC0I0qtcyBkDaBsF-VJT8nKH2PbA-XTF64slPZTg1yjyplmLTX5I-64-Le9xo0nrzH2WqUsPFg" autocomplete="off" />
+<div pl-grid="loose">
+  <div pl-grid="1/1@phone" pl-grid-el>
+    <h3 class="pl-heading--large">
+        Sign In
+    </h3>
+  </div>
+
+  <div pl-grid="1/1@phone" pl-grid-el>
+    <label class="pl-shim-form-control-label" for="user_login">Enter Email or Phone</label>
+    <input autofocus="autofocus" class="pl-shim-form-control-text--spacious" onblur="phoneMask()" aria-describedby="errors-unique-id" type="text" name="user[login]" id="user_login" />
+
+  </div>
+
+  <div pl-grid="1/1@phone" pl-grid-el>
+    
+    <input type="submit" name="commit" value="Continue" class="pl-button--full pl-button--highlight" data-disable-with="Continue" />
+  </div>
+
+    <div pl-grid="1/1@phone" pl-grid-el class="pl-text--light pl-text--center">
+      Don&#39;t have an account?
+      <br/>
+      <a href="https://user.sportngin.com/users/sign_up"
+          sem-click
+          sem-category="SingleSignOn"
+          sem-label="Step1"
+          sem-action="Step1.CreateAccountClick"
+          style="box-shadow: inset 0 0 0 0px #c1cace;"
+          class="pl-button">CREATE ACCOUNT
+      </a>
+    </div>
+</div>
+</form>
+<script type="text/javascript">
+  function phoneMask() {
+    var el = document.getElementById('user_login');
+    var maskedPhone = el.value.match(/(\d{3})(\d{3})(\d{4})/);
+    if (maskedPhone) {
+      el.value = "(" + maskedPhone[1] + ") " + maskedPhone[2] + "-" + maskedPhone[3];
+    }
+  }
+
+  (function($){
+    $("form").submit(function() {
+      var el = document.getElementById('user_login');
+      var isPhone = el.value.match(/^(?:\+?\d{1,3}\s*-?)?\(?(?:\d{3})?\)?[- ]?\d{3}[- ]?\d{4}$/);
+      var loginType = isPhone ? 'Phone' : 'Email';
+      action  = "NextToPasswordClick.Entered" + loginType;
+      window.seAnalytics = window.seAnalytics || {};
+      window.seAnalytics.seEvent({
+        depth1: "SingleSignOn",
+        depth2: "Step1",
+        action: action,
+        event_type: 1
+      });
+
+    });
+  })(jQuery);
+
+</script>
+
+<div class="user-service-card__footer">
+    <div style="padding-bottom: 4px;">
+      <a href="https://www.sportsengine.com/solutions/"
+          class="pl-link"
+          sem-click
+          sem-category="SingleSignOn"
+          sem-label="Step1"
+          sem-action="Step1.WhatIsSportsEngineClick">What's SportsEngine?
+      </a>
+    </div>
+    <div>
+      Need Help?
+      <a href="https://intercom.help/SportsEngine/en/"
+          class="pl-link"
+          sem-click
+          sem-category="SingleSignOn"
+          sem-label="Step1"
+          sem-action="Step1.HelpCenterLinkClick">SportsEngine Help Center
+      </a>
+    </div>
+</div>
+
+
+      </div>
+
+      <div class="pl-text--center">
+        
+<footer class="pillar group appFooter">
+  <div>
+    <br>
+    <div style="padding-top: 12px; padding-bottom: 4px;">
+      <a href= https://www.sportsengine.com/terms-and-conditions
+        sem-click
+        sem-category="SingleSignOn"
+        sem-label="Step1"
+        sem-action="Step1.TermsOfUseClick"
+        class="sn-link pl-link" target="_blank">Terms &amp; Conditions
+      </a>
+        |
+      <a href= https://www.versantprivacy.com/privacy?brandA=SportsEngine&amp;intake=SportsEngine
+        sem-click
+        sem-category="SingleSignOn"
+        sem-label="Step1"
+        sem-action="Step1.PrivacyPolicyClick"
+        class="sn-link pl-link" target="_blank">Privacy Policy
+      </a>
+    </div>
+    &copy; 2026
+    <a href='http://www.sportsengine.com'
+      sem-click
+      sem-category="SingleSignOn"
+      sem-label="Step1"
+      sem-action="Step1.SportsEngineHomepageClick"
+      class="sn-link pl-link" target= "_blank"> SportsEngine, LLC.
+    </a>
+    All Rights Reserved.
+  </div>
+</footer>
+
+<div id="recaptcha-container"></div>
+
+      </div>
+
+      
+<script type="text/javascript">
+  ;(function($) {
+    if (!document.getElementById('systemSpriteSVG')) {
+      var svgLoader = $('<div id="systemSpriteSVG" />').prependTo('body');
+      $.get("https://s3.amazonaws.com/sportngin-snap-production/ui_themes/assets/latest/images/system-sprite.svg", function(data) {
+        svgLoader.append(data.childNodes[0]);
+      });
+    }
+  })(jQuery);
+</script>
+
+        <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M67J9FB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script>
+window.addEventListener('message', function(event){
+  const externalClaimFlowPage = 'sessions' === 'angular_application'
+  if(event.data === 'utd:ready' && !externalClaimFlowPage) {
+    window.seAnalytics.pageView({
+      depth1: 'SingleSignOn',
+      depth2: 'Step1',
+      platform_referrer: 'SportsEngine.Default'
+    });
+  }
+})
+</script>
+
+
+        <script src="https://se-bar.sportngin.com/se-bar.js" async></script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M67J9FB');</script>
+<!-- End Google Tag Manager -->
+<title>404 Not Found</title>
+<style type=text/css>
+
+<!--
+
+body{
+	font-family: "Lucida Grande", verdana, geneva, helvetica, arial, sans;
+    font-size: 12px;
+	line-height: 140%;
+	margin: 25px;
+	width: 400px;
+
+}
+
+h1{
+	font-size: 24px;
+	line-height: 28px;
+}
+
+h2{
+	font-size: 14px;
+	line-height: 22px;
+	color: #666666;
+	font-weight: normal;
+	text-transform: uppercase;
+	letter-spacing: .15em;
+	border-top: solid 1px #CCCCCC;
+	border-bottom: solid 1px #CCCCCC;
+	margin-bottom: 20px;
+}
+
+
+-->
+
+</style>
+
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M67J9FB"
+				  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="errorMessage">
+	<h2>Error 404: File Not Found</h2>
+	<img src="/logo_images/logo_381x70.png" alt="SportsEngine" />
+
+    <h1>Sorry, the page you requested was not found.</h1>
+    <p>You've requested a page that does not exist. The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+	<p><strong>Try these options:</strong></p>
+	<ul>
+		<li>Please check the URL for proper spelling and capitalization.</li>
+		<li>Click the Back button to try another link.</li>
+
+	</ul>
+</div>
+</body>
+</html>
+
+
